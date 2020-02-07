@@ -5,7 +5,8 @@ const mongoose =require("mongoose");
 const cors = require('cors')
 const authUserController =require("./Controller/authUser") 
 const authOwnerController =require("./Controller/authOwner") 
-const authRouter = require("./Routes/authRoute")
+const authUserRouter = require("./Routes/authUserRoute") 
+const authOwnerRouter = require("./Routes/authOwnerRouter") 
 // dotenv.config();
 app.use(cors());
 
@@ -25,7 +26,8 @@ app.use(express.json())
 app.use('/api/user',authUserController);
 app.use('/api/owner',authOwnerController);
 
-app.use('/api',authRouter);
+app.use('/api/users',authUserRouter);
+app.use('/api/owners',authOwnerRouter);
 
 //last MW
 app.use((request,response,next)=>{
