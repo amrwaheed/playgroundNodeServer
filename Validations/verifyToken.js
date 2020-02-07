@@ -8,7 +8,7 @@ module.exports  = function (request,response,next) {
     // if (!request.headers.authorization.includes('Bearer ') ) {
     //     response.status(403).send('Unauthorized');
     // }
-    if(isAuthorization == false){
+    if(!isAuthorization || !request.headers ){
         response.status(401).send('Unauthorized');
     }
     const token = request.header('Authorization').split(' ')[1] ;
