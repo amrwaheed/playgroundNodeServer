@@ -27,24 +27,31 @@ coreRouter.get('/contact',(request,response)=>{
 })
 
 coreRouter.get('/profile',verify,(request,response)=>{
-
-    response.status(200).json({
-        User:{
-            title:"Hello  ",
-            data : "private user data "
-            
-        }
-    })
+    if(request.user.type == 'administration'){
+        response.status(200).json({
+            User:{
+                title:"Hello  ",
+                data : "private user data "
+                
+            }
+        })
+    }else{
+        response.status(401).json({
+            data : "you are not allow to see page"
+        })
+    }
 })
 
 coreRouter.get('/department',verify,(request,response)=>{
-
-    response.status(200).json({
-        department:{
-            name:"Mean stack",
-            data : "private department data "
-            
-        }
-    })
+    if(request.user.type == 'administration'){
+         response.status(200).json({
+            department:{
+                name:"Mean stack",
+                data : "private department data "
+                
+            }
+        })
+    }
+   
 })
 module.exports = coreRouter
