@@ -20,7 +20,9 @@ module.exports  = function (request,response,next) {
         const verified = jwt.verify(token ,process.env.TOKEN_SECRET);
         // console.log(verified) // data in payload
         request.user = verified
-        // console.log(request)
+      
+
+        
         next()
     } catch (error) {
 
