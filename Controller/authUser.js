@@ -28,9 +28,18 @@ router.post('/register', async (request, response) => {
     //creating new user
     const newUser = new User({
         _id: request.body._id,
-        name: request.body.name,
+        firstName: request.body.firstName,
+        lastName: request.body.lastName,
+        username: request.body.username,
         email: request.body.email,
+        phone: request.body.phone,
         password: hashedPassword,
+        address:{
+            governorate_id:request.body.address.governorate_id,
+            city_id:request.body.address.city_id
+        },
+        // ['address.governorate_id']: request.body.address.governorate_id,
+        // ['address.city_id']: request.body.address.city_id,
         type: request.body.type
     });
 

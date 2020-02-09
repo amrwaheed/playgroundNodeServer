@@ -9,10 +9,22 @@ const userSchema =new mongoose.Schema({
         type: Number ,
         required: true
         } ,
-    name: {
+    firstName: {
         type: String ,
         required: true,
         min: 3,
+        max: 255
+    },
+    lastName: {
+        type: String ,
+        required: true,
+        min: 3,
+        max: 255
+    },
+    username: {
+        type: String ,
+        required: true,
+        min: 6,
         max: 255
     },
 
@@ -23,6 +35,12 @@ const userSchema =new mongoose.Schema({
         min: 8,
         max: 255
     },
+    phone: {
+        type: Number,
+        required: true,
+        // min: 8,
+        // max: 12
+    },
 
     password: {
         type: String,
@@ -30,11 +48,17 @@ const userSchema =new mongoose.Schema({
         min: 3,
         max: 1024
     },
+    address: {
+        governorate_id: Number,
+        city_id: Number,
+
+    },
     type: {
         type: String,
         required: true,
         min: 6,
-        max: 50
+        max: 50,
+        default: 'users'
     },
     date: {
         type: Date,

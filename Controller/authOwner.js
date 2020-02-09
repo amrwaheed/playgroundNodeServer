@@ -7,7 +7,7 @@ const _ =require('lodash');
 
 
 routerOwner.post('/register', async (request, response) => {
-
+    console.log(request.body)
     // validating the data in the request body 
     const { error } = registerValidation(request.body);
 
@@ -29,9 +29,16 @@ routerOwner.post('/register', async (request, response) => {
     //creating new Owner
     const newOwner = new Owner({
         _id: request.body._id,
-        name: request.body.name,
+        firstName: request.body.firstName,
+        lastName: request.body.lastName,
+        username: request.body.username,
         email: request.body.email,
+        phone: request.body.phone,
         password: hashedPassword,
+        address:{
+            governorate_id:request.body.address.governorate_id,
+            city_id:request.body.address.city_id
+        },
         type: request.body.type
     });
 
