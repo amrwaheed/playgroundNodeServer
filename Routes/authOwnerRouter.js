@@ -26,15 +26,10 @@ coreOwnerRouter.get('/contact',(request,response)=>{
     })
 })
 
-coreOwnerRouter.get('/profile',verify,(request,response)=>{
+coreOwnerRouter.use(verify,(request,response,next)=>{
+   
     if(request.user.type == 'administration'){
-        response.status(200).json({
-            owner:{
-                title:"Hello  ",
-                data : "private user data "
-                
-            }
-        })
+        next()
     }else{
         response.status(401).json({
             data : "you are not allow to see page"
@@ -42,7 +37,19 @@ coreOwnerRouter.get('/profile',verify,(request,response)=>{
     }
 })
 
-coreOwnerRouter.get('/department',verify,(request,response)=>{
+coreOwnerRouter.get('/profile',(request,response)=>{
+
+        response.status(200).json({
+            owner:{
+                title:"Hello  ",
+                data : "private user data "
+                
+            }
+        })
+   
+})
+
+coreOwnerRouter.get('/department',(request,response)=>{
     if(request.user.type == 'administration'){
          response.status(200).json({
             department:{
