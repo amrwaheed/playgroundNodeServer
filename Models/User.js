@@ -49,8 +49,14 @@ const userSchema =new mongoose.Schema({
         max: 1024
     },
     address: {
-        governorate_id: Number,
-        city_id: Number,
+        governorate_id: {
+              type: Number,
+              ref:"governorates"
+        },
+        city_id: {
+            type: Number,
+            ref:"cities"
+      }
 
     },
     type: {
@@ -58,12 +64,12 @@ const userSchema =new mongoose.Schema({
         required: true,
         min: 6,
         max: 50,
-        default: 'users'
+        default: 'user'
     },
     date: {
         type: Date,
         default: Date.now
     }
 })
-userSchema.plugin(autoIncrement.plugin, { model: 'User', field: '_id', startAt: 1, incrementBy: 1 })
-module.exports = mongoose.model("User",userSchema) 
+userSchema.plugin(autoIncrement.plugin, { model: 'users', field: '_id', startAt: 1, incrementBy: 1 })
+module.exports = mongoose.model("users",userSchema) 

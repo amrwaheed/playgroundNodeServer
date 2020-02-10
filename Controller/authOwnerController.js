@@ -7,7 +7,7 @@ const _ =require('lodash');
 
 
 routerOwner.post('/register', async (request, response) => {
-    console.log(request.body)
+    // console.log(request.body)
     // validating the data in the request body 
     const { error } = registerValidation(request.body);
 

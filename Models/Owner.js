@@ -49,8 +49,14 @@ const ownerSchema =new mongoose.Schema({
         max: 1024
     },
     address: {
-        governorate_id: Number,
-        city_id: Number,
+        governorate_id: {
+            type: Number,
+            ref:"governorates"
+      },
+      city_id: {
+          type: Number,
+          ref:"cities"
+    }
 
     },
     type: {
@@ -58,12 +64,12 @@ const ownerSchema =new mongoose.Schema({
         required: true,
         min: 6,
         max: 50,
-        default: 'users'
+        default: 'owner'
     },
     date: {
         type: Date,
         default: Date.now
     }
 })
-ownerSchema.plugin(autoIncrement.plugin, { model: 'Owner', field: '_id', startAt: 1, incrementBy: 1 })
-module.exports = mongoose.model("Owner",ownerSchema) 
+ownerSchema.plugin(autoIncrement.plugin, { model: 'owners', field: '_id', startAt: 1, incrementBy: 1 })
+module.exports = mongoose.model("owners",ownerSchema) 
