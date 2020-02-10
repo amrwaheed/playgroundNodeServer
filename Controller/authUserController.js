@@ -38,8 +38,7 @@ router.post('/register', async (request, response) => {
             governorate_id:request.body.address.governorate_id,
             city_id:request.body.address.city_id
         },
-        // ['address.governorate_id']: request.body.address.governorate_id,
-        // ['address.city_id']: request.body.address.city_id,
+        
         type: request.body.type
     });
 

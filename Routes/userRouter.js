@@ -2,13 +2,9 @@ const userRouter = require("express").Router();
 const verify =require("../Validations/verifyToken")
 
 
-
-
-
-
 userRouter.use(verify,(request,response,next)=>{
    
-    if(request.user.type == 'users'){
+    if(request.user.type == 'user'){
         next()
     }else{
         response.status(401).json({
@@ -29,16 +25,5 @@ userRouter.get('/profile',verify,(request,response)=>{
     
 })
 
-userRouter.get('/department',verify,(request,response)=>{
-    
-         response.status(200).json({
-            department:{
-                name:"Mean stack",
-                data : "private department data "
-                
-            }
-        })
-    
-   
-})
+
 module.exports = userRouter

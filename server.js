@@ -7,13 +7,14 @@ const authUserController =require("./Controller/authUserController")
 const authOwnerController =require("./Controller/authOwnerController") 
 const userRouter = require("./Routes/userRouter") 
 const ownerRouter = require("./Routes/ownerRouter") 
+const governorateRouter = require("./Routes/governorateRouter") 
+const cityRouter = require("./Routes/cityRouter") 
 // dotenv.config();
 app.use(cors());
 
 
 //connect To The Database 
-mongoose.connect(process.env.DB_CONNECT,{useUnifiedTopology: true, useNewUrlParser: true},()=>console.log('connected to Database ...')
-)
+mongoose.connect(process.env.DB_CONNECT,{useUnifiedTopology: true, useNewUrlParser: true},()=>console.log('connected to Database ...'))
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
 //importing Routes
@@ -28,6 +29,8 @@ app.use('/api/auth/owner',authOwnerController);
 
 app.use('/api/user',userRouter);
 app.use('/api/owner',ownerRouter);
+app.use('/api',governorateRouter);
+app.use('/api',cityRouter);
 
 //last MW
 app.use((request,response,next)=>{
