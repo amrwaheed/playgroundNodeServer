@@ -1,32 +1,7 @@
-const coreOwnerRouter = require("express").Router();
+const ownerRouter = require("express").Router();
 const verify =require("../Validations/verifyToken")
-coreOwnerRouter.get('/',(request,response)=>{
-    response.status(200).json({
-        page:{
-            title:"home "
-            
-        }
-    })
-})
 
-coreOwnerRouter.get('/about',(request,response)=>{
-    response.status(200).json({
-        page:{
-            title:"about "
-            
-        }
-    })
-})
-coreOwnerRouter.get('/contact',(request,response)=>{
-    response.status(200).json({
-        page:{
-            title:"contact "
-            
-        }
-    })
-})
-
-coreOwnerRouter.use(verify,(request,response,next)=>{
+ownerRouter.use(verify,(request,response,next)=>{
     if(request.user.type == 'administration'){
         next()
     }else{
@@ -36,7 +11,7 @@ coreOwnerRouter.use(verify,(request,response,next)=>{
     }
 })
 
-coreOwnerRouter.get('/profile',(request,response)=>{
+ownerRouter.get('/profile',(request,response)=>{
 
         response.status(200).json({
             owner:{
@@ -48,7 +23,7 @@ coreOwnerRouter.get('/profile',(request,response)=>{
    
 })
 
-coreOwnerRouter.get('/department',(request,response)=>{
+ownerRouter.get('/department',(request,response)=>{
   
          response.status(200).json({
             department:{
@@ -60,4 +35,4 @@ coreOwnerRouter.get('/department',(request,response)=>{
     
    
 })
-module.exports = coreOwnerRouter
+module.exports = ownerRouter
