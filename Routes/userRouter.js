@@ -1,37 +1,12 @@
-const coreRouter = require("express").Router();
+const userRouter = require("express").Router();
 const verify =require("../Validations/verifyToken")
 
 
 
 
 
-coreRouter.get('/',(request,response)=>{
-    response.status(200).json({
-        page:{
-            title:"home "
-            
-        }
-    })
-})
 
-coreRouter.get('/about',(request,response)=>{
-    response.status(200).json({
-        page:{
-            title:"about "
-            
-        }
-    })
-})
-coreRouter.get('/contact',(request,response)=>{
-    response.status(200).json({
-        page:{
-            title:"contact "
-            
-        }
-    })
-})
-
-coreRouter.use(verify,(request,response,next)=>{
+userRouter.use(verify,(request,response,next)=>{
    
     if(request.user.type == 'users'){
         next()
@@ -42,7 +17,7 @@ coreRouter.use(verify,(request,response,next)=>{
     }
 })
 
-coreRouter.get('/profile',verify,(request,response)=>{
+userRouter.get('/profile',verify,(request,response)=>{
  
         response.status(200).json({
             User:{
@@ -54,7 +29,7 @@ coreRouter.get('/profile',verify,(request,response)=>{
     
 })
 
-coreRouter.get('/department',verify,(request,response)=>{
+userRouter.get('/department',verify,(request,response)=>{
     
          response.status(200).json({
             department:{
@@ -66,4 +41,4 @@ coreRouter.get('/department',verify,(request,response)=>{
     
    
 })
-module.exports = coreRouter
+module.exports = userRouter
