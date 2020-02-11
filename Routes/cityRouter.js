@@ -29,7 +29,7 @@ citiesRouter.route('/cities/:id?')
             .post((request, response)=>{
                 let governorateObject = new citiesSchema({
                 name: request.body.name,
-                governorateId: request.body.governorateId,
+                governorate_id: request.body.governorate_id,
 
             });
           
@@ -46,7 +46,7 @@ citiesRouter.route('/cities/:id?')
                 citiesSchema.updateOne({_id:request.body.id},{
                     $set:{
                         name: request.body.name,
-                        governorateId: request.body.governorateId,
+                        governorate_id: request.body.governorate_id,
                     }
                 })
                 .then(result => response.status(200).send(result))
