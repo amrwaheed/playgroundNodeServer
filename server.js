@@ -8,6 +8,7 @@ const authOwnerController =require("./Controller/authOwnerController")
 const userRouter = require("./Routes/userRouter") 
 const ownerRouter = require("./Routes/ownerRouter")
 const bookingRouter = require("./Routes/bookingRouter") 
+const governorateRouter = require("./Routes/governorateRouter") 
 // dotenv.config();
 app.use(cors());
 
