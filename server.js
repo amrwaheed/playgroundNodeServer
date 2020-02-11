@@ -6,15 +6,16 @@ const cors = require('cors')
 const authUserController =require("./Controller/authUserController") 
 const authOwnerController =require("./Controller/authOwnerController") 
 const userRouter = require("./Routes/userRouter") 
-const ownerRouter = require("./Routes/ownerRouter") 
+const ownerRouter = require("./Routes/ownerRouter")
+const bookingRouter = require("./Routes/bookingRouter") 
 const governorateRouter = require("./Routes/governorateRouter") 
-const cityRouter = require("./Routes/cityRouter") 
 // dotenv.config();
 app.use(cors());
 
 
 //connect To The Database 
-mongoose.connect(process.env.DB_CONNECT,{useUnifiedTopology: true, useNewUrlParser: true},()=>console.log('connected to Database ...'))
+mongoose.connect(process.env.DB_CONNECT,{useUnifiedTopology: true, useNewUrlParser: true},()=>console.log('connected to Database ...')
+)
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
 //importing Routes
@@ -22,15 +23,14 @@ mongoose.set('useFindAndModify', false);
 // Middlewares
 app.use(express.json())
 
-
 //Route Middleware
 app.use('/api/auth/user',authUserController);
 app.use('/api/auth/owner',authOwnerController);
 
 app.use('/api/user',userRouter);
 app.use('/api/owner',ownerRouter);
-app.use('/api',governorateRouter);
-app.use('/api',cityRouter);
+app.use('/api/user',bookingRouter);
+
 
 //last MW
 app.use((request,response,next)=>{
@@ -41,7 +41,6 @@ app.use((request,response,next)=>{
 /// c- Error mw
 /// To Handle Errors
 app.use( (error,request,response,next) => {
-
     response.send(error.message+"");
 });
 
