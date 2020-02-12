@@ -12,9 +12,7 @@ const registerValidation = data => {
         address:{
             governorate_id: joi.number().required(),
             city_id: joi.number().required(),
-        },
-       
-        type: joi.string().required().min(3).max(50),
+        }
     });
     return schema.validate(data)
 

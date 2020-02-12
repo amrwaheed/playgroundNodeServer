@@ -39,7 +39,7 @@ router.post('/register', async (request, response) => {
             city_id:request.body.address.city_id
         },
         
-        type: request.body.type
+        type: "user"
     });
 
     try {

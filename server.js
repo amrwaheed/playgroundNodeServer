@@ -10,6 +10,8 @@ const ownerRouter = require("./Routes/ownerRouter")
 const bookingRouter = require("./Routes/bookingRouter") 
 const governorateRouter = require("./Routes/governorateRouter") 
 const playgroundRouter = require("./Routes/playgroundRouter") 
+const cityRouter = require("./Routes/cityRouter") 
+const categoriesRouter = require("./Routes/categoriesRouter") 
 // dotenv.config();
 app.use(cors());
 
@@ -24,15 +26,19 @@ mongoose.set('useFindAndModify', false);
 // Middlewares
 app.use(express.json())
 
+app.use('/api',governorateRouter);
+app.use('/api',cityRouter);
+
 //Route Middleware
 app.use('/api/auth/user',authUserController);
 app.use('/api/auth/owner',authOwnerController);
 
 app.use('/api/owner',ownerRouter);
-app.use('/api',governorateRouter);
+
+app.use('/api',categoriesRouter);
 app.use('/api',playgroundRouter);
-app.use('/api/user',userRouter);
 app.use('/api/user',bookingRouter);
+app.use('/api/user',userRouter);
 
 
 //last MW

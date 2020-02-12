@@ -21,5 +21,5 @@ const citiesSchema = new mongoose.Schema({
         ref: "governorates"
     }
 })
-governorateSchema.plugin(autoIncrement.plugin, { model: 'cities', field: '_id', startAt: 1, incrementBy: 1 })
+citiesSchema.plugin(autoIncrement.plugin, { model: 'cities', field: '_id', startAt: 1, incrementBy: 1 })
 module.exports = mongoose.model("cities", citiesSchema) 

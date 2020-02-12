@@ -61,9 +61,6 @@ const userSchema =new mongoose.Schema({
     },
     type: {
         type: String,
-        required: true,
-        min: 6,
-        max: 50,
         default: 'user'
     },
     date: {

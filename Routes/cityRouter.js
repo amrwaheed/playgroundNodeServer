@@ -1,31 +1,32 @@
 const citiesRouter = require("express").Router();
 let mongoose = require("mongoose");
 const verify =require("../Validations/verifyToken")
-require('../Models/Governorate')
-let citiesSchema = mongoose.model('governorates');
+require('../Models/Cities')
+let citiesSchema = mongoose.model('cities');
 
-citiesRouter.use(verify,(request,response,next)=>{
-    if(request.user.type == 'owner'){
-        next()
+citiesRouter.get('/cities/:id?',(request, response)=>{
+    if(request.params.id){
+     citiesSchema.find({governorate_id:request.params.id})
+     .then(result => response.status(200).send(result))
+     .catch(err => response.status(401).send(err))
     }else{
-        response.status(401).json({
-            data : "you are not allow to see page"
-        })
+     citiesSchema.find({})
+     .then(result => response.status(200).send(result))
+     .catch(err => response.status(401).send(err))
     }
-})
-citiesRouter.route('/cities/:id?')
-            .get((request, response)=>{
-               if(request.params.id){
-                citiesSchema.findOne({_id:request.params.id})
-                .then(result => response.status(200).send(result))
-                .catch(err => response.status(401).send(err))
-               }else{
-                citiesSchema.find({})
-                .then(result => response.status(200).send(result))
-                .catch(err => response.status(401).send(err))
-               }
-            })
+ })
+ 
+// citiesRouter.use(verify,(request,response,next)=>{
+//     if(request.user.type == 'owner'){
+//         next()
+//     }else{
+//         response.status(401).json({
+//             data : "you are not allow to see page"
+//         })
+//     }
+// })
 
+citiesRouter.route('/cities/:id?')
             .post((request, response)=>{
                 let governorateObject = new citiesSchema({
                 name: request.body.name,
