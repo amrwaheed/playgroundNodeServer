@@ -54,7 +54,7 @@ router.post('/register', async (request, response) => {
 
 })
 router.post('/login', async (request, response) => {
-
+        
     // validating the data in the request body 
     const { error } = loginValidation(request.body);
 
