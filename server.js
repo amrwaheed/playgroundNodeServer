@@ -6,9 +6,12 @@ const cors = require('cors')
 const authUserController =require("./Controller/authUserController") 
 const authOwnerController =require("./Controller/authOwnerController") 
 const userRouter = require("./Routes/userRouter") 
-const ownerRouter = require("./Routes/ownerRouter") 
+const ownerRouter = require("./Routes/ownerRouter")
+const bookingRouter = require("./Routes/bookingRouter") 
 const governorateRouter = require("./Routes/governorateRouter") 
+const playgroundRouter = require("./Routes/playgroundRouter") 
 const cityRouter = require("./Routes/cityRouter") 
+const categoriesRouter = require("./Routes/categoriesRouter") 
 // dotenv.config();
 app.use(cors());
 
@@ -21,16 +24,27 @@ mongoose.set('useFindAndModify', false);
 
 // Middlewares
 app.use(express.json())
+app.use(express.urlencoded({
+    extended: true
+  }));
+// Make "public" Folder Publicly Available
+app.use('/public', express.static('public'));
 
+
+app.use('/api',governorateRouter);
+app.use('/api',cityRouter);
 
 //Route Middleware
 app.use('/api/auth/user',authUserController);
 app.use('/api/auth/owner',authOwnerController);
 
-app.use('/api/user',userRouter);
 app.use('/api/owner',ownerRouter);
-app.use('/api',governorateRouter);
-app.use('/api',cityRouter);
+
+app.use('/api',categoriesRouter);
+app.use('/api',playgroundRouter);
+app.use('/api/user',bookingRouter);
+app.use('/api/user',userRouter);
+
 
 //last MW
 app.use((request,response,next)=>{
@@ -41,7 +55,6 @@ app.use((request,response,next)=>{
 /// c- Error mw
 /// To Handle Errors
 app.use( (error,request,response,next) => {
-
     response.send(error.message+"");
 });
 

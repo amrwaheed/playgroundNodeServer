@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken") ;
 
 module.exports  = function (request,response,next) {
+
         let isAuthorization = request.headers.authorization ? true : false;
 
         // console.log(request.headers.authorization ? true : false)
@@ -9,7 +10,7 @@ module.exports  = function (request,response,next) {
     //     response.status(403).send('Unauthorized');
     // }
     if(!isAuthorization || !request.headers ){
-        response.status(401).send('Unauthorized');
+        response.status(401).send('Unauthorized You Don\'t have token');
     }
     const token = request.header('Authorization').split(' ')[1] ;
     

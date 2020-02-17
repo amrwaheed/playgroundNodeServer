@@ -5,6 +5,7 @@ autoIncrement.initialize(connection); // mongoose to connect db
 
 // create schema 
 const citiesSchema = new mongoose.Schema({
+    // _id:false,
     _id: {
         type: Number,
         required: true
@@ -15,10 +16,10 @@ const citiesSchema = new mongoose.Schema({
       
     },
 
-    governorateId: {
+    governorate_id: {
         type: Number,
-        ref: "Governorates"
+        ref: "governorates"
     }
 })
-governorateSchema.plugin(autoIncrement.plugin, { model: 'cities', field: '_id', startAt: 1, incrementBy: 1 })
+citiesSchema.plugin(autoIncrement.plugin, { model: 'cities', field: '_id', startAt: 1, incrementBy: 1 })
 module.exports = mongoose.model("cities", citiesSchema) 

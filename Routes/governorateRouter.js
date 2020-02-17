@@ -4,15 +4,15 @@ const verify =require("../Validations/verifyToken")
 require('../Models/Governorate')
 let governorateSchema = mongoose.model('governorates');
 
-governorateRouter.use(verify,(request,response,next)=>{
-    if(request.user.type == 'owner'){
-        next()
-    }else{
-        response.status(401).json({
-            data : "you are not allow to see page"
-        })
-    }
-})
+// governorateRouter.use(verify,(request,response,next)=>{
+//     if(request.user.type == 'owner'){
+//         next()
+//     }else{
+//         response.status(401).json({
+//             data : "you are not allow to see page"
+//         })
+//     }
+// })
 governorateRouter.route('/governorate/:id?')
             .get((request, response)=>{
                if(request.params.id){

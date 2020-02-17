@@ -52,24 +52,23 @@ const ownerSchema =new mongoose.Schema({
         governorate_id: {
             type: Number,
             ref:"governorates"
-      },
+        },
       city_id: {
           type: Number,
           ref:"cities"
-    }
-
+        }
     },
     type: {
         type: String,
-        required: true,
-        min: 6,
-        max: 50,
         default: 'owner'
     },
     date: {
         type: Date,
         default: Date.now
-    }
+    },
+    imageProfile: {
+        type: String
+    },
 })
 ownerSchema.plugin(autoIncrement.plugin, { model: 'owners', field: '_id', startAt: 1, incrementBy: 1 })
 module.exports = mongoose.model("owners",ownerSchema) 

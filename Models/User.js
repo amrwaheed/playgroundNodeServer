@@ -61,15 +61,16 @@ const userSchema =new mongoose.Schema({
     },
     type: {
         type: String,
-        required: true,
-        min: 6,
-        max: 50,
         default: 'user'
     },
     date: {
         type: Date,
         default: Date.now
-    }
+    },
+    imageProfile: {
+        type: String
+    },
+    
 })
 userSchema.plugin(autoIncrement.plugin, { model: 'users', field: '_id', startAt: 1, incrementBy: 1 })
 module.exports = mongoose.model("users",userSchema) 

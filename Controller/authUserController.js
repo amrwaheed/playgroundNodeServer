@@ -39,7 +39,7 @@ router.post('/register', async (request, response) => {
             city_id:request.body.address.city_id
         },
         
-        type: request.body.type
+        type: "user"
     });
 
     try {
@@ -54,7 +54,7 @@ router.post('/register', async (request, response) => {
 
 })
 router.post('/login', async (request, response) => {
-
+        
     // validating the data in the request body 
     const { error } = loginValidation(request.body);
 
