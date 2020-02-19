@@ -76,7 +76,7 @@ routerOwner.post('/login', async (request, response) => {
         response.status(400).send('invalid password')
     }
 
-    const token = jwt.sign({ type: owner.type ,email:owner.email }, process.env.TOKEN_SECRET, {
+    const token = jwt.sign({ type: owner.type ,email:owner.email, id:owner._id }, process.env.TOKEN_SECRET, {
         expiresIn: process.env.JWT_EXP
     })
     response.header('Authorization',  "Bearer " +  token).status(200).send({ token })

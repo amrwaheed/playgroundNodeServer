@@ -16,61 +16,57 @@ const playgroundSchema = new mongoose.Schema({
         max: 255
     },
    
-    image: {
+    uploadImages: {
         type: String ,
-        required: true,
+      
     },
     address: {
         governorate_id: {
             type: Number,
-            required: true,
             ref:'governorates'
 
         },
         city_id: {
             type: Number,
-            required: true,
             ref:'cities'
         }
     },
-    location: {
-        lat: {
-            type: Number,
-            required: true,
+    // location: {
+    //     lat: {
+    //         type: Number
 
-        },
-        lng: {
-            type: Number,
-            required: true,
-        }, 
-        accuracy: {
-            type: Number,
-            required: true,
-        } 
-    },
+    //     },
+    //     lng: {
+    //         type: Number,
+           
+    //     }, 
+    //     accuracy: {
+    //         type: Number,
+           
+    //     } 
+    // },
     dayPrice: {
         type: Number,
-        required: true,
+        
     } , 
     nightPrice:  Number, 
     covered: {
         type: Boolean,
-        required: true,
         default: false
 
     },
     details: {
         type: String,
-        required: true
+   
     },
     category_id: {
         type: Number,
-        required: true,
+       
         ref: "playgroundCategories"
     },
     owner_id: {
         type: Number,
-        required: true,
+        
         ref:"owners"
     }
 })

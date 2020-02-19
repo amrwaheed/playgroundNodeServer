@@ -14,7 +14,14 @@ const cityRouter = require("./Routes/cityRouter")
 const categoriesRouter = require("./Routes/categoriesRouter") 
 // dotenv.config();
 app.use(cors());
-
+//create a cors middleware
+app.use(function(req, res, next) {
+    //set headers to allow cross origin request.
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        next();
+    });
 
 //connect To The Database 
 mongoose.connect(process.env.DB_CONNECT,{useUnifiedTopology: true, useNewUrlParser: true},()=>console.log('connected to Database ...'))
