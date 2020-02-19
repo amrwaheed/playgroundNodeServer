@@ -7,12 +7,12 @@ const verify = require("../Validations/verifyToken");
 
 
 
-playgroundRouter.route('/playgroundCategories/:id?', verify)
+playgroundRouter.route('/playgroundCategories/:id?')
 
 
     .get((request, response) => {
-        if (request.body.id) {
-            playgroundschema.find({ _id: request.body.id })
+        if (request.params.id == undefined) {
+            playgroundschema.find({  })
                 .then((data) => {
                     response.send(data)
                 })

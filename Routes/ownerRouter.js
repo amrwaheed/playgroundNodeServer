@@ -6,6 +6,7 @@ const _ =require('lodash');
 
 
 ownerRouter.use(verify,(request,response,next)=>{
+
     if(request.user.type == 'owner'){
         next()
     }else{
@@ -16,13 +17,13 @@ ownerRouter.use(verify,(request,response,next)=>{
 })
 
 // Multer File upload settings
-const DIR = './public/owner/';
+const DIR = './public/owners/';
 const storage = multer.diskStorage({
     destination: (request, file, cb) => {
       cb(null, DIR);
     },
     filename: (request, file, cb) => {
-      // console.log(file);
+   
       const filename = Date.now()+file.originalname.toLowerCase().split(' ').join('-');
       cb(null, filename)
     }
@@ -84,7 +85,7 @@ ownerRouter.route('/profile/:p?')
                             governorate_id:request.body.governorate_id,
                             city_id:request.body.city_id
                         },
-                        imageProfile: url + '/public/owner/' + request.file.filename
+                        imageProfile: url + '/public/owners/' + request.file.filename
                     }
                 })
                 .then(result => response.status(200).send(result))

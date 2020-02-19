@@ -75,7 +75,7 @@ router.post('/login', async (request, response) => {
         response.status(400).send('invalid password')
     }
 
-    const token = jwt.sign({ type: user.type ,email:user.email }, process.env.TOKEN_SECRET, {
+    const token = jwt.sign({ type: user.type ,email:user.email , id:user._id}, process.env.TOKEN_SECRET, {
         expiresIn: process.env.JWT_EXP
     })
     response.header('Authorization',  "Bearer " +  token).status(200).send({ token })
