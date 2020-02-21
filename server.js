@@ -11,7 +11,8 @@ const bookingRouter = require("./Routes/bookingRouter")
 const governorateRouter = require("./Routes/governorateRouter") 
 const playgroundRouter = require("./Routes/playgroundRouter") 
 const cityRouter = require("./Routes/cityRouter") 
-const categoriesRouter = require("./Routes/categoriesRouter") 
+const categoriesRouter = require("./Routes/categoriesRouter")
+const resetPasswordRouter = require('./Controller/resetPassword'); 
 // dotenv.config();
 app.use(cors());
 //create a cors middleware
@@ -40,6 +41,7 @@ app.use('/public', express.static('public'));
 
 app.use('/api',governorateRouter);
 app.use('/api',cityRouter);
+app.use('/api',resetPasswordRouter);
 
 //Route Middleware
 app.use('/api/auth/user',authUserController);
