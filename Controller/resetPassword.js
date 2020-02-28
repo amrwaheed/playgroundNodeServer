@@ -14,47 +14,81 @@ const _ = require("lodash")
 
 resetPasswordRouter.route('/resetPassword/:type?')
         .post( async (request,response)=>{
-             
+           
             if(request.body.type == 'user'){
                     // checking if the user's email already exists in the DB
                 const emailExists = await User.findOne({ email: request.body.email });
 
-                if (emailExists) {
+                if (emailExists) { // find email want to send email 
+                   
                     let verificationCodeRandom =  Math.floor(100000 + Math.random() * 900000);
                     await User.updateOne({email:emailExists.email},{
                     $set:{
                         verificationCode:verificationCodeRandom
                     }
                     })
-                    User.findOne({email:emailExists.email}).then(sendMail=>{
                     let transporter = nodeMailer.createTransport({
-                        service:'gmail',
-                        host: 'smtp.gmail.com',
-                        port: 465,
-                        secure: true,
-                        connectionTimeout:3000,
-                        auth: {
-                                type:"OAuth2",
-                                user:"m7md.sabry90@gmail.com",
-                                clientId:"155487456660-ulivi8233bl5l9ii54fvr7vt4lqb66q9.apps.googleusercontent.com",
-                                clientSecret:"uE1MKNPMipcXJ3wChbb6jj6m",
-                                refreshToken:"1//04YNQm8jvoOJaCgYIARAAGAQSNwF-L9Ir4Y8bpniJQTQhOnQsTXJeBJxlllZ_ac9LdBYKzPb7JeKtgFap_oFLj9dUOv53-F66kP8"
-                            }
-                    });
+                            service:'gmail',
+                            host: 'smtp.gmail.com',
+                            port: 465,
+                            secure: true,
+                            connectionTimeout:5000,
+                            auth: {
+                                    type:"OAuth2",
+                                    user:"m7md.sabry90@gmail.com",
+                                    clientId:"155487456660-ulivi8233bl5l9ii54fvr7vt4lqb66q9.apps.googleusercontent.com",
+                                    clientSecret:"uE1MKNPMipcXJ3wChbb6jj6m",
+                                    refreshToken:"1//04YNQm8jvoOJaCgYIARAAGAQSNwF-L9Ir4Y8bpniJQTQhOnQsTXJeBJxlllZ_ac9LdBYKzPb7JeKtgFap_oFLj9dUOv53-F66kP8"
+                                }
+                        });
+
+                      
+                        let mailOptions = {
+                                from: 'AbuHamza@playgroundteam.com', // sender address
+                                to: request.body.email, // list of receivers
+                                subject: "Reset your password", // Subject line
+                                text: 'I hope this message gets through!',
+                                html: `<b>This is from Playground Team mail service   ${verificationCodeRandom}</b>` // html body
+                            };
+
+                            transporter.sendMail(mailOptions, (error, info) => {
+                                        if (error) {  response.send(error)  } 
+                                        console.log(info)
+                                })                               
+                               
+
+
+
+
+                    // User.findOne({email:emailExists.email}).then(sendMail=>{
+                    // let transporter = nodeMailer.createTransport({
+                    //     service:'gmail',
+                    //     host: 'smtp.gmail.com',
+                    //     port: 465,
+                    //     secure: true,
+                    //     connectionTimeout:5000,
+                    //     auth: {
+                    //             type:"OAuth2",
+                    //             user:"m7md.sabry90@gmail.com",
+                    //             clientId:"155487456660-ulivi8233bl5l9ii54fvr7vt4lqb66q9.apps.googleusercontent.com",
+                    //             clientSecret:"uE1MKNPMipcXJ3wChbb6jj6m",
+                    //             refreshToken:"1//04YNQm8jvoOJaCgYIARAAGAQSNwF-L9Ir4Y8bpniJQTQhOnQsTXJeBJxlllZ_ac9LdBYKzPb7JeKtgFap_oFLj9dUOv53-F66kP8"
+                    //         }
+                    // });
                     
-                    let mailOptions = {
-                        from: 'AbuHamza@playgroundteam.com', // sender address
-                        to: request.body.email, // list of receivers
-                        subject: "Reset your password", // Subject line
-                        text: 'I hope this message gets through!',
-                        html: `<b>This is from Playground Team mail service   ${sendMail.verificationCode}</b>` // html body
-                    };
-                    transporter.sendMail(mailOptions, (error, info) => {
-                            if (error) {  response.send(error)  } 
-                    });                               
-                    }).catch(error=>{
-                        response.send(error)
-                    })
+                    // let mailOptions = {
+                    //     from: 'AbuHamza@playgroundteam.com', // sender address
+                    //     to: request.body.email, // list of receivers
+                    //     subject: "Reset your password", // Subject line
+                    //     text: 'I hope this message gets through!',
+                    //     html: `<b>This is from Playground Team mail service   ${sendMail.verificationCode}</b>` // html body
+                    // };
+                    // transporter.sendMail(mailOptions, (error, info) => {
+                    //         if (error) {  response.send(error)  } 
+                    // });                               
+                    // }).catch(error=>{
+                    //     response.send(error)
+                    // })
                     response.status(200).send({"message":"Message Sent Successfully"})
                 }else{
                     return response.status(400).send(`email Not Founded `)
@@ -78,7 +112,7 @@ resetPasswordRouter.route('/resetPassword/:type?')
                         host: 'smtp.gmail.com',
                         port: 465,
                         secure: true,
-                        connectionTimeout:3000,
+                        connectionTimeout:5000,
                         auth: {
                                 type:"OAuth2",
                                 user:"m7md.sabry90@gmail.com",
@@ -101,7 +135,7 @@ resetPasswordRouter.route('/resetPassword/:type?')
                     })
                     response.status(200).send({"message":"Message Sent Successfully"})
                 }else{
-                    return response.status(400).send(`email Not Founded `)
+                    return response.status(404).send(`email Not Founded `)
 
                 }
             }
